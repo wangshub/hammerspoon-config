@@ -40,7 +40,7 @@ function usbDeviceCallback(data)
 end
 
 function bluetoothSwitch(state)
-  -- 0(off), 1(on)
+  -- state: 0(off), 1(on)
   cmd = "/usr/local/bin/blueutil --power "..(state)
   print(cmd)
   result = hs.osascript.applescript(string.format('do shell script "%s"', cmd))
