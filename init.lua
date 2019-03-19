@@ -10,9 +10,6 @@ local speech = require 'hs.speech'
 local inspect = require('inspect')
 
 local hyper = {'ctrl', 'cmd'}
-speaker = speech.new()
-speaker:speak("Boss, I am online!")
-
 print('--------------------------------------------------------------')
 
 -- show fromt app infos
@@ -23,14 +20,13 @@ hs.hotkey.bind(
                                     window.focusedWindow():application():path(),
                                     window.focusedWindow():application():name(),
                                     hs.keycodes.currentSourceID()))
-end)
+    end)
 
 -- Handle cursor focus and application's screen manage.
 function applicationWatcher(appName, eventType, appObject)
     -- Move cursor to center of application when application activated.
     -- Then don't need move cursor between screens.
-    -- print(string.format("%s is activated %s", appName, eventType))
-    -- print(inspect(appObject))
+    print(hs.inspect(appObject))
 end
 
 
@@ -48,7 +44,6 @@ function bluetoothSwitch(state)
   cmd = "/usr/local/bin/blueutil --power "..(state)
   print(cmd)
   result = hs.osascript.applescript(string.format('do shell script "%s"', cmd))
-  print(result)
 end
 
 function caffeinateCallback(eventType)
@@ -86,6 +81,9 @@ function reloadConfig(paths)
     hs.reload()
 end
 
+-------------------------------
+-- Register callback functions |
+-------------------------------
 
 appWatcher = hs.application.watcher.new(applicationWatcher)
 appWatcher:start()
@@ -104,3 +102,10 @@ wifiWatcher:start()
 
 configFileWatcher = hs.pathwatcher.new(os.getenv("HOME") .. "/.hammerspoon/", reloadConfig)
 configFileWatcher:start()
+
+-- lock mac by "win + L", same as Windows and Ubuntu
+hs.hotkey.bind({"cmd"}, "L", hs.caffeinate.systemSleep)
+
+speaker = speech.new()
+speaker:speak("Hammerspoon is online")
+hs.notify.new({title="Hammerspoon launch", informativeText="Boss, at your service"}):send()
