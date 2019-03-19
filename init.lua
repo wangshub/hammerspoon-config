@@ -10,7 +10,8 @@ local speech = require 'hs.speech'
 local inspect = require('inspect')
 
 local hyper = {'ctrl', 'cmd'}
-
+speaker = speech.new()
+speaker:speak("Boss, I am online!")
 print('--------------------------------------------------------------------')
 
 -- Key to launch application.
@@ -34,6 +35,7 @@ end
 local function English()
     hs.keycodes.currentSourceID("com.apple.keylayout.ABC")
 end
+
 
 function updateFocusAppInputMethod()
     for key, app in pairs(key2App) do
@@ -72,10 +74,21 @@ hs.hotkey.bind("alt-shift", "tab", function()
 end)
 
 hs.hotkey.bind("alt", "tab", function()
-										switcher:next()
-										updateFocusAppInputMethod()
+	switcher:next()
+	updateFocusAppInputMethod()
 end)
 
+-- Handle cursor focus and application's screen manage.
+startAppPath = ""
+function applicationWatcher(appName, eventType, appObject)
+    -- Move cursor to center of application when application activated.
+    -- Then don't need move cursor between screens.
+    -- print(string.format("%s is activated %s", appName, eventType))
+    -- print(inspect(appObject))
+end
+
+appWatcher = hs.application.watcher.new(applicationWatcher)
+appWatcher:start()
 
 -- Hello world Hammerspoon
 hs.hotkey.bind({"cmd", "alt", "ctrl"}, "W", function()
@@ -91,3 +104,5 @@ hs.hotkey.bind(
                                     window.focusedWindow():application():name(),
                                     hs.keycodes.currentSourceID()))
 end)
+
+
