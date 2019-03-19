@@ -12,88 +12,8 @@ local inspect = require('inspect')
 local hyper = {'ctrl', 'cmd'}
 speaker = speech.new()
 speaker:speak("Boss, I am online!")
-print('--------------------------------------------------------------------')
 
--- Key to launch application.
-local key2App = {
-    i = {'/Applications/iTerm.app', 'English', 2},
-    e = {'/Applications/Emacs.app', 'English', 2},
-    c = {'/Applications/Google Chrome.app', 'English', 1},
-    f = {'/System/Library/CoreServices/Finder.app', 'English', 1},
-    n = {'/Applications/NeteaseMusic.app', 'Chinese', 1},
-    w = {'/Applications/WeChat.app', 'Chinese', 1},
-    s = {'/Applications/System Preferences.app', 'English', 1},
-    p = {'/Applications/Preview.app', 'Chinese', 2},
-  }
-
-
--- Manage application's inputmethod status.
-local function Chinese()
-    hs.keycodes.currentSourceID("com.sogou.inputmethod.sogou.pinyin")
-end
-
-local function English()
-    hs.keycodes.currentSourceID("com.apple.keylayout.ABC")
-end
-
-
-function updateFocusAppInputMethod()
-    for key, app in pairs(key2App) do
-        local appPath = app[1]
-        local inputmethod = app[2]
-
-        if window.focusedWindow():application():path() == appPath then
-            if inputmethod == 'English' then
-                English()
-            else
-                Chinese()
-            end
-
-            break
-        end
-    end
-end
-
--- Build better app switcher.
-switcher = hs.window.switcher.new(
-    hs.window.filter.new()
-        :setAppFilter('Emacs', {allowRoles = '*', allowTitles = 1}), -- make emacs window show in switcher list
-    {
-        showTitles = true,               -- don't show window title
-        thumbnailSize = 200,              -- window thumbnail size
-        showSelectedThumbnail = false,    -- don't show bigger thumbnail
-        backgroundColor = {0, 0, 0, 0.8}, -- background color
-        highlightColor = {0.3, 0.3, 0.3, 0.8}, -- selected color
-    }
-)
-
-
-hs.hotkey.bind("alt-shift", "tab", function()
-                   switcher:previous()
-                   updateFocusAppInputMethod()
-end)
-
-hs.hotkey.bind("alt", "tab", function()
-	switcher:next()
-	updateFocusAppInputMethod()
-end)
-
--- Handle cursor focus and application's screen manage.
-startAppPath = ""
-function applicationWatcher(appName, eventType, appObject)
-    -- Move cursor to center of application when application activated.
-    -- Then don't need move cursor between screens.
-    -- print(string.format("%s is activated %s", appName, eventType))
-    -- print(inspect(appObject))
-end
-
-appWatcher = hs.application.watcher.new(applicationWatcher)
-appWatcher:start()
-
--- Hello world Hammerspoon
-hs.hotkey.bind({"cmd", "alt", "ctrl"}, "W", function()
-  hs.alert.show("Hello World!")
-end)
+print('--------------------------------------------------------------')
 
 -- show fromt app infos
 hs.hotkey.bind(
@@ -105,4 +25,82 @@ hs.hotkey.bind(
                                     hs.keycodes.currentSourceID()))
 end)
 
+-- Handle cursor focus and application's screen manage.
+function applicationWatcher(appName, eventType, appObject)
+    -- Move cursor to center of application when application activated.
+    -- Then don't need move cursor between screens.
+    -- print(string.format("%s is activated %s", appName, eventType))
+    -- print(inspect(appObject))
+end
 
+
+function screensChangedCallback()
+    print("screensChangedCallback")
+    --hs.layout.apply(dual_display)
+end
+
+function usbDeviceCallback(data)
+  print("usbDeviceCallback: "..hs.inspect(data))
+end
+
+function bluetoothSwitch(state)
+  -- 0(off), 1(on)
+  cmd = "/usr/local/bin/blueutil --power "..(state)
+  print(cmd)
+  result = hs.osascript.applescript(string.format('do shell script "%s"', cmd))
+  print(result)
+end
+
+function caffeinateCallback(eventType)
+    if (eventType == hs.caffeinate.watcher.screensDidSleep) then
+      print("screensDidSleep")
+    elseif (eventType == hs.caffeinate.watcher.screensDidWake) then
+      print("screensDidWake")
+    elseif (eventType == hs.caffeinate.watcher.screensDidLock) then
+      print("screensDidLock")
+      bluetoothSwitch(0)
+    elseif (eventType == hs.caffeinate.watcher.screensDidUnlock) then
+      print("screensDidUnlock")
+      bluetoothSwitch(1)
+    end
+end
+
+function ssidChangedCallback()
+    ssid = hs.wifi.currentNetwork()
+    print("ssid = "..(ssid))
+end
+
+function reloadConfig(paths)
+    doReload = false
+    for _,file in pairs(paths) do
+        if file:sub(-4) == ".lua" then
+            print("A lua config file changed, reload")
+            doReload = true
+        end
+    end
+    if not doReload then
+        print("No lua file changed, skipping reload")
+        return
+    end
+
+    hs.reload()
+end
+
+
+appWatcher = hs.application.watcher.new(applicationWatcher)
+appWatcher:start()
+
+screenWatcher = hs.screen.watcher.new(screensChangedCallback)
+screenWatcher:start()
+
+caffeinateWatcher = hs.caffeinate.watcher.new(caffeinateCallback)
+caffeinateWatcher:start()
+
+usbWatcher = hs.usb.watcher.new(usbDeviceCallback)
+usbWatcher:start()
+
+wifiWatcher = hs.wifi.watcher.new(ssidChangedCallback)
+wifiWatcher:start()
+
+configFileWatcher = hs.pathwatcher.new(os.getenv("HOME") .. "/.hammerspoon/", reloadConfig)
+configFileWatcher:start()
