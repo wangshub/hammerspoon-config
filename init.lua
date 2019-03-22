@@ -12,7 +12,17 @@ local inspect = require('inspect')
 local hyper = {'ctrl', 'cmd'}
 local bleDeviceID = '04-5d-4b-52-d0-0a'
 
-print('--------------------------------------------------------------')
+print('\n--------------------------------------------------------------')
+
+
+local function Chinese()
+    hs.keycodes.currentSourceID("com.sogou.inputmethod.sogou.pinyin")
+end
+
+local function English()
+    hs.keycodes.currentSourceID("com.apple.keylayout.ABC")
+end
+
 
 -- show fromt app infos
 hs.hotkey.bind(
@@ -26,15 +36,14 @@ hs.hotkey.bind(
 
 -- Handle cursor focus and application's screen manage.
 function applicationWatcher(appName, eventType, appObject)
-    -- Move cursor to center of application when application activated.
-    -- Then don't need move cursor between screens.
-    print(hs.inspect(appObject))
+    if (eventType == hs.application.watcher.activated) then
+      Chinese()
+    end
 end
 
 
 function screensChangedCallback()
     print("screensChangedCallback")
-    --hs.layout.apply(dual_display)
 end
 
 function usbDeviceCallback(data)
@@ -43,7 +52,6 @@ end
 
 function bluetoothSwitch(state)
   -- state: 0(off), 1(on)
-  -- blueutil --disconnect 04-5d-4b-52-d0-0a
   cmd = "/usr/local/bin/blueutil --power "..(state)
   print(cmd)
   result = hs.osascript.applescript(string.format('do shell script "%s"', cmd))
