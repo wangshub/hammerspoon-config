@@ -24,7 +24,7 @@ local function English()
 end
 
 
--- show fromt app infos
+-- show front activated app infos
 hs.hotkey.bind(
     hyper, ".",
     function()
