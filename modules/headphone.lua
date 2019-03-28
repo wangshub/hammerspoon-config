@@ -15,12 +15,10 @@ function disconnectBluetooth()
   result = hs.osascript.applescript(string.format('do shell script "%s"', cmd))
 end
 
-
 function connectBluetooth()
   cmd = "/usr/local/bin/blueutil --connect "..(bleDeviceID)
   result = hs.osascript.applescript(string.format('do shell script "%s"', cmd))
 end
-
 
 function caffeinateCallback(eventType)
     if (eventType == hs.caffeinate.watcher.screensDidSleep) then

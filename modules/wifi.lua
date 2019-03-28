@@ -1,5 +1,3 @@
-
-
 function ssidChangedCallback()
     ssid = hs.wifi.currentNetwork()
     if (ssid ~= nil) then
