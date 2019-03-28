@@ -8,5 +8,5 @@ require "modules.wifi"
 require "modules.window"
 require "modules.clipboard"
 require "modules.statuslets"
+require "modules.volume"
 require "modules.speaker"
-
