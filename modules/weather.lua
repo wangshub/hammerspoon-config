@@ -5,26 +5,11 @@ local menuData = {}
 menubar:setTooltip("Weather Info")
 menubar:setTitle('🌤')
 
-popupMenu = function(key)
-   menuData = {
-      { title = "hello title" },
-      { title = "my menu item", fn = function() print("you clicked my menu item!") end },{ title = "-" },
-      { title = "disabled item", disabled = true },
-      { title = "checked item", checked = true },
-      { title = "disabled item", disabled = true },
-      { title = "checked item", checked = true },
-   }
-   return menuData
-end
-
-menubar:setMenu(popupMenu)
-
 function updateMenubar()
    menubar:setMenu(menuData)
 end
 
 function getWeather()
-   print('today is a good day.')
    code, body, htable = hs.http.get(urlApi, nil)
    if code ~= 200 then
       print('get weather error:'..code)
@@ -33,12 +18,22 @@ function getWeather()
    rawjson = hs.json.decode(body)
    menuData = {}
    for k, v in pairs(rawjson.data) do
-      item = { title = v.day }
-      table.insert(menuData, item)
+      if k == 1 then
+         titlestr = string.format("%s %s %s %s %s %s", v.day, v.wea, v.tem, v.humidity, v.air, v.win_speed)
+         item = { title = titlestr }
+         table.insert(menuData, item)
+         table.insert(menuData, {title = '-'})
+      else
+         titlestr = string.format("%s %s %s %s", v.day, v.wea, v.tem, v.win_speed)
+         item = { title = titlestr }
+         table.insert(menuData, item)
+      end
+
    end
    updateMenubar()
 end
 
-
-timer = hs.timer.new(60, getWeather)
+getWeather()
+updateMenubar()
+timer = hs.timer.new(6, getWeather)
 timer:start()
