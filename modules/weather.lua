@@ -2,11 +2,10 @@ local urlApi = 'https://www.tianqiapi.com/api/?version=v1'
 local menubar = hs.menubar.new()
 local menuData = {}
 
-menubar:setTooltip("Weather Info")
-menubar:setTitle('🌤')
-
 function updateMenubar()
+	 menubar:setTooltip("Weather Info")
    menubar:setMenu(menuData)
+	 menubar:setTitle('🌤')
 end
 
 function getWeather()
