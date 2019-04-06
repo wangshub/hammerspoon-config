@@ -48,5 +48,5 @@ end
 
 getWeather()
 updateMenubar()
-timer = hs.timer.new(6, getWeather)
+timer = hs.timer.new(3600, getWeather)
 timer:start()
