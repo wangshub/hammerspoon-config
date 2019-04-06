@@ -46,6 +46,7 @@ function getWeather()
    updateMenubar()
 end
 
+menubar:setTitle('⌛')
 getWeather()
 updateMenubar()
 timer = hs.timer.new(3600, getWeather)
