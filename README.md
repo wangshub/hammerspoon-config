@@ -2,7 +2,12 @@
 
 Make my mac stronger
 
+# Screenshots
+
+<div style="text-align:center"><img src ="https://raw.githubusercontent.com/wangshub/image-hosting/master/img/20190407213529.png" width="60%" /></div>
+
 ## Modules
+
 
 - [modules.headphone](modules/headphone.lua)
 - [modules.hotkey](modules/hotkey.lua)
@@ -15,6 +20,9 @@ Make my mac stronger
 - [modules.statuslets](modules/statuslets.lua)
 - [modules.volume](modules/volume.lua)
 - [modules.speaker](modules/speaker.lua)
+- [modules.weather](modules/weather.lua)
+
+
 
 ## Install
 
