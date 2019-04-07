@@ -4,7 +4,7 @@ Make my mac stronger
 
 # Screenshots
 
-<div style="text-align:center"><img src ="https://raw.githubusercontent.com/wangshub/image-hosting/master/img/20190407213529.png" width="60%" /></div>
+<div style="text-align:center"><img src ="https://raw.githubusercontent.com/wangshub/image-hosting/master/img/20190407213529.png" width="30%" /></div>
 
 ## Modules
 
