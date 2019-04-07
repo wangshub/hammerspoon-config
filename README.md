@@ -8,21 +8,17 @@ Make my mac stronger
 
 ## Modules
 
-
-- [modules.headphone](modules/headphone.lua)
-- [modules.hotkey](modules/hotkey.lua)
-- [modules.ime](modules/ime.lua)
-- [modules.reload](modules/reload.lua)
-- [modules.usb](modules/usb.lua)
-- [modules.wifi](modules/wifi.lua)
-- [modules.window](modules/window.lua)
-- [modules.clipboard](modules/clipboard.lua)
-- [modules.statuslets](modules/statuslets.lua)
-- [modules.volume](modules/volume.lua)
-- [modules.speaker](modules/speaker.lua)
-- [modules.weather](modules/weather.lua)
-
-
+- [clipboard](./clipboard/clipboard.lua) : Clipboard history.
+- [headphone](./headphone/headphone.lua) : Bluetooth headphone auto toggle.
+- [hotkey](./hotkey/hotkey.lua) : Custom hotkey.
+- [ime](./ime/ime.lua) : Auto swith input method app.
+- [reload](./reload/reload) : Reload hs when config files change.
+- [speaker](./speaker/speaker.lua) : Hammerspoon TTS service.
+- [usb](./usb/usb.lua) : Callbacks when add/remove usb devices.
+- [volume](./volume/volume.lua) : Hotkeys for volume control.
+- [wifi](./wifi/wifi.lua) : Callbacks when wifi state change.
+- [window](./window/window.lua) : Hotkeys for window mangement.
+- [weather](./weather/weather.lua) : Local weather state in mac menubar.
 
 ## Install
 
