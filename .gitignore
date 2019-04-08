@@ -42,4 +42,5 @@ luac.out
 *.hex
 
 .DS_Store
-gitlab
+gitlab-dashboard
+autoscript
