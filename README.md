@@ -55,4 +55,4 @@
 
 ## License
 
-MIT @wangshub
+MIT @[Github/wangshub](https://github.com/wangshub)
