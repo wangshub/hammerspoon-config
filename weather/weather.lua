@@ -12,6 +12,7 @@ local weaEmoji = {
    yujiaxue = '🌨',
    yun = '⛅️',
    zhenyu = '🌧',
+   yin = '☁️',
    default = ''
 }
 
