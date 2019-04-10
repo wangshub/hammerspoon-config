@@ -1,6 +1,6 @@
 local cmdArr = {
     "cd /Users/kaboom/Desktop/leju-gitlab/project-plan-platform && source auto_push.sh",
-    "/Users/kaboom/Documents/book && source autopush.sh "
+    "cd /Users/kaboom/Documents/book && source autopush.sh "
 }
 
 function shell(cmd)
