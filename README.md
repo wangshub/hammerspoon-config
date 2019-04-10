@@ -45,7 +45,7 @@
 - [usb](./usb/usb.lua) : Callbacks when add/remove usb devices.
 - [volume](./volume/volume.lua) : Hotkeys for volume control.
 - [wifi](./wifi/wifi.lua) : Callbacks when wifi state change.
-- [window](./window/window.lua) : Hotkeys for window mangement.
+- [window](./window/window.lua) : Hotkeys for window management.
 - [weather](./weather/weather.lua) : Local weather state in mac menubar.
 
 ## Install
