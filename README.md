@@ -21,7 +21,7 @@
 </details>
 
 <details>
-<summary>Volume shotcut</summary>
+<summary>Volume shortcut</summary>
 
 <div style="text-align:center"><img src ="https://user-images.githubusercontent.com/20924010/55765751-c010b400-5aa3-11e9-8b78-e686b104c113.gif" width="50%" /></div>
 
