@@ -51,5 +51,5 @@ end
 menubar:setTitle('⌛')
 getWeather()
 updateMenubar()
-timer = hs.timer.new(3600, getWeather)
+hs.timer.doEvery(3600, getWeather)
 timer:start()
