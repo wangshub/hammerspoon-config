@@ -10,7 +10,7 @@ end
 local app2Ime = {
     {'/Applications/iTerm.app', 'English'},
     {'/Applications/Xcode.app', 'English'},
-    {'/Applications/Google Chrome.app', 'English'},
+    {'/Applications/Google Chrome.app', 'Chinese'},
     {'/System/Library/CoreServices/Finder.app', 'English'},
     {'/Applications/DingTalk.app', 'Chinese'},
     {'/Applications/Kindle.app', 'English'},
