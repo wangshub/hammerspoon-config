@@ -14,5 +14,4 @@ function runAutoScripts()
 end
 
 
-timer = hs.timer.new(3600, runAutoScripts)
-timer:start()
+hs.timer.doEvery(3600, runAutoScripts)
