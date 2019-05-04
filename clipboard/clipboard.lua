@@ -29,6 +29,53 @@ local last_change = pasteboard.changeCount() -- displays how many times the past
 --Array to store the clipboard history
 local clipboard_history = settings.get("so.victor.hs.jumpcut") or {} --If no history is saved on the system, create an empty history
 
+function subStringUTF8(str, startIndex, endIndex)
+    if startIndex < 0 then
+        startIndex = subStringGetTotalIndex(str) + startIndex + 1
+    end
+
+    if endIndex ~= nil and endIndex < 0 then
+        endIndex = subStringGetTotalIndex(str) + endIndex + 1
+    end
+
+    if endIndex == nil then 
+        return string.sub(str, subStringGetTrueIndex(str, startIndex))
+    else
+        return string.sub(str, subStringGetTrueIndex(str, startIndex), subStringGetTrueIndex(str, endIndex + 1) - 1)
+    end
+end
+
+--返回当前截取字符串正确下标
+function subStringGetTrueIndex(str, index)
+    local curIndex = 0
+    local i = 1
+    local lastCount = 1
+    repeat 
+        lastCount = subStringGetByteCount(str, i)
+        i = i + lastCount
+        curIndex = curIndex + 1
+    until(curIndex >= index)
+    return i - lastCount
+end
+
+--返回当前字符实际占用的字符数
+function subStringGetByteCount(str, index)
+    local curByte = string.byte(str, index)
+    local byteCount = 1
+    if curByte == nil then
+        byteCount = 0
+    elseif curByte > 0 and curByte <= 127 then
+        byteCount = 1
+    elseif curByte>=192 and curByte<=223 then
+        byteCount = 2
+    elseif curByte>=224 and curByte<=239 then
+        byteCount = 3
+    elseif curByte>=240 and curByte<=247 then
+        byteCount = 4
+    end
+    return byteCount
+end
+
 -- Append a history counter to the menu
 function setTitle()
    if (#clipboard_history == 0) then
@@ -90,7 +137,7 @@ populateMenu = function(key)
    else
       for k,v in pairs(clipboard_history) do
          if (string.len(v) > label_length) then
-            table.insert(menuData,1, {title=string.sub(v,0,label_length).."…", fn = function() putOnPaste(v,key) end }) -- Truncate long strings
+            table.insert(menuData,1, {title=subStringUTF8(v,0,label_length).."…", fn = function() putOnPaste(v,key) end }) -- Truncate long strings
          else
             table.insert(menuData,1, {title=v, fn = function() putOnPaste(v,key) end })
          end -- end if else
