@@ -124,16 +124,16 @@ end
 -------- Key bindings
 
 -- Halves of the screen
-hs.hotkey.bind({"ctrl",        "cmd"}, "Left",  hs.fnutils.partial(winresize, "left"))
-hs.hotkey.bind({"ctrl",        "cmd"}, "Right", hs.fnutils.partial(winresize, "right"))
-hs.hotkey.bind({"ctrl",        "cmd"}, "Up",    hs.fnutils.partial(winresize, "up"))
-hs.hotkey.bind({"ctrl",        "cmd"}, "Down",  hs.fnutils.partial(winresize, "down"))
+hs.hotkey.bind({"ctrl","cmd"}, "Left",  hs.fnutils.partial(winresize, "left"))
+hs.hotkey.bind({"ctrl","cmd"}, "Right", hs.fnutils.partial(winresize, "right"))
+hs.hotkey.bind({"ctrl","cmd"}, "Up",    hs.fnutils.partial(winresize, "up"))
+hs.hotkey.bind({"ctrl","cmd"}, "Down",  hs.fnutils.partial(winresize, "down"))
 
 -- Thirds of the screen
-hs.hotkey.bind({"ctrl", "alt"       }, "Left",  left_third)
-hs.hotkey.bind({"ctrl", "alt"       }, "Right", right_third)
-hs.hotkey.bind({"ctrl", "alt"       }, "Up",    up_third)
-hs.hotkey.bind({"ctrl", "alt"       }, "Down",  down_third)
+hs.hotkey.bind({"ctrl", "alt"}, "Left",  left_third)
+hs.hotkey.bind({"ctrl", "alt"}, "Right", right_third)
+hs.hotkey.bind({"ctrl", "alt"}, "Up",    up_third)
+hs.hotkey.bind({"ctrl", "alt"}, "Down",  down_third)
 
 -- Maximized
 hs.hotkey.bind({"ctrl", "alt", "cmd"}, "F",     hs.fnutils.partial(winresize, "max"))
