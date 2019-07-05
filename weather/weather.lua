@@ -3,16 +3,16 @@ local menubar = hs.menubar.new()
 local menuData = {}
 
 local weaEmoji = {
-   lei = '⚡️',
+   lei = '⛈',
    qing = '☀️',
    shachen = '😷',
    wu = '🌫',
    xue = '❄️',
    yu = '🌧',
    yujiaxue = '🌨',
-   yun = '⛅️',
+   yun = '☁️',
    zhenyu = '🌧',
-   yin = '☁️',
+   yin = '⛅️',
    default = ''
 }
 
