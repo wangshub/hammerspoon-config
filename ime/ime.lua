@@ -25,22 +25,19 @@ local app2Ime = {
 }
 
 function updateFocusAppInputMethod()
-    local ime = 'English'
     local focusAppPath = hs.window.frontmostWindow():application():path()
     for index, app in pairs(app2Ime) do
         local appPath = app[1]
         local expectedIme = app[2]
 
         if focusAppPath == appPath then
-            ime = expectedIme
+            if expectedIme == 'English' then
+                English()
+            else
+                Chinese()
+            end
             break
         end
-    end
-
-    if ime == 'English' then
-        English()
-    else
-        Chinese()
     end
 end
 
