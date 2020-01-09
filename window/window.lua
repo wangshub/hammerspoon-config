@@ -121,6 +121,11 @@ function down_third()
    end
 end
 
+function center()
+   local win = hs.window.focusedWindow()
+   win:centerOnScreen()
+end
+
 -------- Key bindings
 
 -- Halves of the screen
@@ -128,6 +133,9 @@ hs.hotkey.bind({"ctrl","cmd"}, "Left",  hs.fnutils.partial(winresize, "left"))
 hs.hotkey.bind({"ctrl","cmd"}, "Right", hs.fnutils.partial(winresize, "right"))
 hs.hotkey.bind({"ctrl","cmd"}, "Up",    hs.fnutils.partial(winresize, "up"))
 hs.hotkey.bind({"ctrl","cmd"}, "Down",  hs.fnutils.partial(winresize, "down"))
+
+-- Center of the screen
+hs.hotkey.bind({"ctrl", "cmd"}, "C", center)
 
 -- Thirds of the screen
 hs.hotkey.bind({"ctrl", "alt"}, "Left",  left_third)
